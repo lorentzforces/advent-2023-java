@@ -1,0 +1,15 @@
+.gradle
+build
+bin
+
+# intellij
+.idea
+
+# eclipse
+.classpath
+.factorypath
+.project
+.settings
+
+# MacOS
+.DS_Store
