@@ -14,14 +14,13 @@ endif
 # will be phony)
 
 build:
-> ./gradlew nativeCompile
+> ./gradlew build
 .PHONY: build
 
 run:
-> ./gradlew nativeRun
+> ./gradlew run
 .PHONY: run
 
-# We don't use the native version for tests, as waiting for the native compile is a long time.
 test:
 > ./gradlew test
 .PHONY: test

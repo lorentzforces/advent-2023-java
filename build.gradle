@@ -1,5 +1,4 @@
 plugins {
-    id 'org.graalvm.buildtools.native' version '0.9.28'
     id 'com.adarshr.test-logger' version '4.0.0'
     id 'application'
 }
@@ -17,39 +16,22 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    compileOnly 'org.projectlombok:lombok:1.18.30'
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.1'
-    testImplementation 'org.hamcrest:hamcrest:2.2'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
-}
-
 application {
     mainClass = 'advent2023.Main'
 }
 
-test {
-    useJUnitPlatform()
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    testImplementation(platform('org.junit:junit-bom:5.10.1'))
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
 }
 
-graalvmNative {
-    binaries {
-        all {
-            resources.autodetect()
-        }
-        main {
-            javaLauncher = javaToolchains.launcherFor {
-                languageVersion = JavaLanguageVersion.of(21)
-                vendor = JvmVendorSpec.matching("GraalVM Community")
-            }
-        }
-    }
-    toolchainDetection = false
+// test-logger documentation can be found at:
+// https://github.com/radarsh/gradle-test-logger-plugin
+test {
+    useJUnitPlatform()
+    outputs.upToDateWhen { false }
 }

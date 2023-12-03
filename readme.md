@@ -3,7 +3,6 @@
 ### Objectives:
 
 - Use Java 21
-- Use GraalVM to generate native executables
 - Don't suck
 
 ### Building
@@ -14,7 +13,7 @@ This project uses make to define standard build targets, and Gradle as its Java 
 
 - Make version 4.0 or later
 - Bash shell
-- GraalVM JDK version 21 available to Gradle
+- JDK version 21 or later available to Gradle (via system `PATH` or `JAVA_HOME`)
 
 **To build**
 
@@ -39,3 +38,7 @@ make test
 ```
 make run
 ```
+
+### Notes
+
+- This iteration of Advent of Code was originally done with GraalVM to experiment with building native executables. That was done, but given the slow compile times and the limited number of program runs you do with Advent problems, it really wasn't worth keeping up.
