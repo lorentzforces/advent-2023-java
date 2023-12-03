@@ -1,7 +1,7 @@
 package advent2023;
 
 import advent2023.days.Day_01;
-
+import advent2023.days.Day_02;
 import java.io.BufferedReader;
 import java.util.List;
 import java.util.function.Function;
@@ -45,6 +45,18 @@ public class Main {
 			.part(2)
 			.inputFile("day-01.txt")
 			.runFunction(Day_01::part_02)
+			.build(),
+		AdventDayRun.builder()
+			.day(2)
+			.part(1)
+			.inputFile("day-02.txt")
+			.runFunction(Day_02::part_01)
+			.build(),
+		AdventDayRun.builder()
+			.day(2)
+			.part(2)
+			.inputFile("day-02.txt")
+			.runFunction(Day_02::part_02)
 			.build()
 	);
 }
