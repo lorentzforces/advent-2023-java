@@ -13,7 +13,7 @@ public class Day_02 {
 		final var checkCount = BagSample.builder().red(12).green(13).blue(14).build();
 		return input.lines()
 			.map(Day_02::parseGameLine)
-			.filter(game -> gameIsPossible(checkCount, game))
+			.filter(game -> game.isPossibleWithTotalCount(checkCount))
 			.map(game -> game.index)
 			.reduce(Integer::sum)
 			.get();
@@ -25,13 +25,6 @@ public class Day_02 {
 			.map(game -> game.powerValue)
 			.reduce(Integer::sum)
 			.get();
-	}
-
-	public static boolean gameIsPossible(@NonNull BagSample totalCounts, @NonNull BagGame game) {
-		return
-			totalCounts.red >= game.maxRed
-			&& totalCounts.green >= game.maxGreen
-			&& totalCounts.blue >= game.maxBlue;
 	}
 
 	@Builder
@@ -65,6 +58,12 @@ public class Day_02 {
 			maxBlue = blue;
 
 			powerValue = maxRed * maxGreen * maxBlue;
+		}
+
+		public boolean isPossibleWithTotalCount(BagSample totalCounts) {
+			return totalCounts.red >= maxRed
+				&& totalCounts.green >= maxGreen
+				&& totalCounts.blue >= maxBlue;
 		}
 	}
 
