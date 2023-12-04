@@ -15,6 +15,8 @@ This project uses make to define standard build targets, and Gradle as its Java 
 - Bash shell
 - JDK version 21 or later available to Gradle (via system `PATH` or `JAVA_HOME`)
 
+If you can read basic commands out of a makefile and are somewhat familiar with Gradle, you can skip the first two requirements.
+
 **To build**
 
 ```
