@@ -94,6 +94,9 @@ public class Day_03 {
 			});
 		}
 
+		// NOTE: Apparently my puzzle input only had "*" symbols which were adjacent to 2 numbers.
+		// The general case with slightly different input would require storing the symbol and
+		// filtering out any non-"*" symbols to accurately solve the problem.
 		public Integer totalGearRatios() {
 			return symbols.stream()
 				.map(symbol -> {
