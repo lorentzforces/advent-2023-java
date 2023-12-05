@@ -1,7 +1,7 @@
 package advent2023.days;
 
+import advent2023.Util;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -12,37 +12,25 @@ import lombok.NonNull;
 public class Day_03 {
 
 	public static Integer part_01(@NonNull BufferedReader input) {
-		GridItems gridItems = null;
-		try {
-			gridItems = parseGrid(input);
-		} catch (IOException e) {
-			// just blow it up as a RuntimeException
-			throw new RuntimeException(e);
-		}
-
-		return gridItems.adjacentNumbers().map(number -> number.value).reduce(Integer::sum).get();
+		return parseGrid(input)
+			.adjacentNumbers()
+			.map(number -> number.value)
+			.reduce(Integer::sum)
+			.get();
 	}
 
 	public static Integer part_02(@NonNull BufferedReader input) {
-		GridItems gridItems = null;
-		try {
-			gridItems = parseGrid(input);
-		} catch (IOException e) {
-			// just blow it up as a RuntimeException
-			throw new RuntimeException(e);
-		}
-
-		return gridItems.totalGearRatios();
+		return parseGrid(input).totalGearRatios();
 	}
 
-	private static final Pattern searchItems = Pattern.compile("(\\d+|[^\\w\\s\\.])");
+	private static final Pattern SEARCH_ITEMS = Pattern.compile("(\\d+|[^\\w\\s\\.])");
 
-	private static GridItems parseGrid(@NonNull BufferedReader input) throws IOException {
-		final var matcher = searchItems.matcher("");
+	private static GridItems parseGrid(@NonNull BufferedReader input) {
+		final var matcher = SEARCH_ITEMS.matcher("");
 		final var numbers = new ArrayList<List<Number>>();
 		final var symbols = new ArrayList<Point>();
 		var row = 0;
-		var line = input.readLine();
+		var line = Util.readLineFullSend(input);
 		while (line != null) {
 			final var lineNumbers = new ArrayList<Number>();
 			matcher.reset(line);
@@ -74,7 +62,7 @@ public class Day_03 {
 
 			numbers.add(lineNumbers);
 			row++;
-			line = input.readLine();
+			line = Util.readLineFullSend(input);
 		}
 
 		return GridItems.builder().numbers(numbers).symbols(symbols).build();

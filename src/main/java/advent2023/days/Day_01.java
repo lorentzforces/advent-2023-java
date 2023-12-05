@@ -10,24 +10,24 @@ import lombok.NonNull;
 
 public class Day_01 {
 
-	private static final Map<String, Character> digitWords;
-	private static final Pattern digitPattern;
+	private static final Map<String, Character> DIGIT_WORDS;
+	private static final Pattern DIGIT_PATTERN;
 
 	static {
-		digitWords = new HashMap<>();
-		digitWords.put("zero", '0');
-		digitWords.put("one", '1');
-		digitWords.put("two", '2');
-		digitWords.put("three", '3');
-		digitWords.put("four", '4');
-		digitWords.put("five", '5');
-		digitWords.put("six", '6');
-		digitWords.put("seven", '7');
-		digitWords.put("eight", '8');
-		digitWords.put("nine", '9');
+		DIGIT_WORDS = new HashMap<>();
+		DIGIT_WORDS.put("zero", '0');
+		DIGIT_WORDS.put("one", '1');
+		DIGIT_WORDS.put("two", '2');
+		DIGIT_WORDS.put("three", '3');
+		DIGIT_WORDS.put("four", '4');
+		DIGIT_WORDS.put("five", '5');
+		DIGIT_WORDS.put("six", '6');
+		DIGIT_WORDS.put("seven", '7');
+		DIGIT_WORDS.put("eight", '8');
+		DIGIT_WORDS.put("nine", '9');
 
-		digitPattern = Pattern.compile(
-			digitWords.entrySet().stream()
+		DIGIT_PATTERN = Pattern.compile(
+			DIGIT_WORDS.entrySet().stream()
 				.flatMap(entry -> Stream.of(entry.getKey(), String.valueOf(entry.getValue())))
 				.collect(Collectors.joining("|"))
 		);
@@ -68,12 +68,12 @@ public class Day_01 {
 		Character firstDigit = null;
 		Character lastDigit = null;
 
-		final var matcher = digitPattern.matcher(line);
+		final var matcher = DIGIT_PATTERN.matcher(line);
 		while (matcher.find()) {
 			final var word = matcher.group();
 			final var c = switch (word.length()) {
 				case 1: yield word.charAt(0);
-				default: yield digitWords.get(word);
+				default: yield DIGIT_WORDS.get(word);
 			};
 
 			if (firstDigit == null) {
