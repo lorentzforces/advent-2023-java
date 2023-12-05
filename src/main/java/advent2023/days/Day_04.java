@@ -16,7 +16,7 @@ public class Day_04 {
 	public static Integer part_01(@NonNull BufferedReader input) {
 		return input.lines()
 			.map(ScratchPlay::parse)
-			.map(play -> play.getScore())
+			.map(play -> play.score)
 			.reduce(Integer::sum)
 			.get();
 	}
@@ -30,11 +30,11 @@ public class Day_04 {
 		for (var i = 0; i < copies.length; i++) {
 			final var card = cards.get(i);
 			final var cardCopies = copies[i];
-			final var score = card.getMatchedNumbers();
+			final var matches = card.matches;
 
 			for (
 				var j = i + 1;
-				j <= i + score && j < copies.length;
+				j <= i + matches && j < copies.length;
 				j++
 			) {
 				copies[j] += cardCopies;
@@ -48,7 +48,9 @@ public class Day_04 {
 	public static record ScratchPlay (
 		int cardNumber,
 		@NonNull Set<Integer> winners,
-		@NonNull Set<Integer> myNumbers
+		@NonNull Set<Integer> myNumbers,
+		int matches,
+		int score
 	) {
 		// as usual, assume valid syntax in our input
 		public static ScratchPlay parse(String input) {
@@ -59,33 +61,32 @@ public class Day_04 {
 			final var cardNumber = Integer.valueOf(numberMatcher.group());
 
 			final var winnersAndMyNumbers = cardAndNumbers[1].split("\\|");
-			return ScratchPlay.builder()
-				.cardNumber(cardNumber)
-				.winners(
-					numberMatcher.reset(winnersAndMyNumbers[0])
-						.results()
-						.map(MatchResult::group)
-						.map(Integer::valueOf)
-						.collect(Collectors.toSet())
-				).myNumbers(
-					numberMatcher.reset(winnersAndMyNumbers[1])
-						.results()
-						.map(MatchResult::group)
-						.map(Integer::valueOf)
-						.collect(Collectors.toSet())
-				).build();
-		}
-
-		public int getMatchedNumbers() {
-			return (int) myNumbers.stream().filter(myNum -> winners.contains(myNum)).count();
-		}
-
-		public int getScore() {
-			final var matches = myNumbers.stream().filter(myNum -> winners.contains(myNum)).count();
-			return switch (getMatchedNumbers()) {
+			final var winners = numberMatcher.reset(winnersAndMyNumbers[0])
+				.results()
+				.map(MatchResult::group)
+				.map(Integer::valueOf)
+				.collect(Collectors.toSet());
+			final var myNumbers = numberMatcher.reset(winnersAndMyNumbers[1])
+				.results()
+				.map(MatchResult::group)
+				.map(Integer::valueOf)
+				.collect(Collectors.toSet());
+			final var matches =
+				(int) myNumbers.stream()
+					.filter(myNum -> winners.contains(myNum))
+					.count();
+			final var score = switch (matches) {
 				case 0: yield 0;
 				default: yield 1 << (matches - 1);
 			};
+
+			return ScratchPlay.builder()
+				.cardNumber(cardNumber)
+				.winners(winners)
+				.myNumbers(myNumbers)
+				.matches(matches)
+				.score(score)
+				.build();
 		}
 	}
 
