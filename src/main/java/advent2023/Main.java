@@ -1,9 +1,6 @@
 package advent2023;
 
-import advent2023.days.Day_01;
-import advent2023.days.Day_02;
-import advent2023.days.Day_03;
-import advent2023.days.Day_04;
+import advent2023.days.*;
 import java.io.BufferedReader;
 import java.util.List;
 import java.util.function.Function;
@@ -27,7 +24,7 @@ public class Main {
 	) {
 		public void run() {
 			final var resultString = "Result for Day %2d [Part %2d]: %s";
-			try {
+			try (final var fileStream = Util.readResource(inputFile)) {
 				final var result = runFunction.apply(Util.readResource(inputFile));
 				System.out.println(String.format(
 					resultString,
@@ -94,6 +91,18 @@ public class Main {
 			.part(2)
 			.inputFile("day-04.txt")
 			.runFunction(Day_04::part_02)
+			.build(),
+		AdventDayRun.builder()
+			.day(5)
+			.part(1)
+			.inputFile("day-05.txt")
+			.runFunction(Day_05::part_01)
+			.build(),
+		AdventDayRun.builder()
+			.day(5)
+			.part(2)
+			.inputFile("day-05.txt")
+			.runFunction(Day_05::part_02)
 			.build()
 	);
 }

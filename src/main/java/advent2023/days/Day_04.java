@@ -1,17 +1,16 @@
 package advent2023.days;
 
+import static advent2023.Util.NUMBER_PATTERN;
+
 import java.io.BufferedReader;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.regex.MatchResult;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.NonNull;
 
 public class Day_04 {
-
-	private static final Pattern NUMBER_PATTERN = Pattern.compile("\\d+");
 
 	public static Integer part_01(@NonNull BufferedReader input) {
 		return input.lines()

@@ -4,8 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.io.UncheckedIOException;
+import java.util.regex.Pattern;
 
 public class Util {
+
+	public static final Pattern NUMBER_PATTERN = Pattern.compile("\\d+");
+
 	public static BufferedReader readResource(String resourcePath) {
 		return new BufferedReader(new InputStreamReader(
 			Thread.currentThread().getContextClassLoader().getResourceAsStream(resourcePath)
@@ -23,7 +28,7 @@ public class Util {
 		try {
 			return reader.readLine();
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			throw new UncheckedIOException(e);
 		}
 	}
 }
