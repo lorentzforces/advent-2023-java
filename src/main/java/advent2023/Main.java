@@ -37,7 +37,7 @@ public class Main {
 					resultString,
 					day,
 					part,
-					"--ERROR-- " + e.getMessage()
+					" --ERROR-- " + e.getClass().getTypeName() + ": " + e.getMessage()
 				));
 			}
 		}
@@ -103,6 +103,18 @@ public class Main {
 			.part(2)
 			.inputFile("day-05.txt")
 			.runFunction(Day_05::part_02)
+			.build(),
+		AdventDayRun.builder()
+			.day(6)
+			.part(1)
+			.inputFile("day-06.txt")
+			.runFunction(Day_06::part_01)
+			.build(),
+		AdventDayRun.builder()
+			.day(6)
+			.part(2)
+			.inputFile("day-06.txt")
+			.runFunction(Day_06::part_02)
 			.build()
 	);
 }
