@@ -115,6 +115,18 @@ public class Main {
 			.part(2)
 			.inputFile("day-06.txt")
 			.runFunction(Day_06::part_02)
+			.build(),
+		AdventDayRun.builder()
+			.day(7)
+			.part(1)
+			.inputFile("day-07.txt")
+			.runFunction(Day_07::part_01)
+			.build(),
+		AdventDayRun.builder()
+			.day(7)
+			.part(2)
+			.inputFile("day-07.txt")
+			.runFunction(Day_07::part_02)
 			.build()
 	);
 }

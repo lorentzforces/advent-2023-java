@@ -16,13 +16,13 @@ public class Day_06_Test {
 	@Test
 	public void part1SampleInputProducesExpected() throws IOException {
 		final var result = Day_06.part_01(readerFromString(sampleInput));
-		assertThat(result, is(288));
+		assertThat(result, is(288L));
 	}
 
 	@Test
 	public void part2SampleInputProducesExpected() throws IOException {
 		final var result = Day_06.part_02(readerFromString(sampleInput));
-		assertThat(result, is(71503));
+		assertThat(result, is(71503L));
 	}
 
 }
