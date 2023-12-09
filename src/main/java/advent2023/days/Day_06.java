@@ -13,12 +13,11 @@ public class Day_06 {
 
 	public static Long part_01(@NonNull BufferedReader input) {
 		final var races = parseRaces(input);
-		return races.stream().map(Day_06::calculateWinCount).reduce((a, b) -> a * b).get();
+		return races.stream().map(Race::calculateWinCount).reduce((a, b) -> a * b).get();
 	}
 
 	public static Long part_02(@NonNull BufferedReader input) {
-		final var race = parseSingleRace(input);
-		return calculateWinCount(race);
+		return parseSingleRace(input).calculateWinCount();
 	}
 
 	private static List<Race> parseRaces(@NonNull BufferedReader input) {
@@ -65,6 +64,21 @@ public class Day_06 {
 		return Race.builder().duration(time).recordDistance(distance).build();
 	}
 
+	@Builder
+	public static record Race (
+		long duration,
+		long recordDistance
+	) {
+		private long calculateWinCount() {
+			final var roots = quadratic(1L, -1 * duration, recordDistance);
+			// We do this weird dance to cover whole integer values. We want to know how many whole
+			// integer numbers are on the number line between our two roots. If our roots are, for
+			// example, 10.0 and 20.0, there are 9 whole numbers in that (exclusive) range. We find the
+			// largest integer strictly less than the upper bound, and just truncate the lower bound.
+			return highestWholeNumber(roots[0]) - (long)roots[1];
+		}
+	}
+
 	/**
 	 * The highest integer on the number line which is strictly less than the provided double value.
 	 */
@@ -72,15 +86,6 @@ public class Day_06 {
 		assert x > 0;
 		final var longValue = (long)x;
 		return longValue == x ? longValue - 1 : longValue;
-	}
-
-	private static long calculateWinCount(@NonNull Race race) {
-		final var roots = quadratic(1L, -1 * race.duration(), race.recordDistance());
-		// We do this weird dance to cover whole integer values. We want to know how many whole
-		// integer numbers are on the number line between our two roots. If our roots are, for
-		// example, 10.0 and 20.0, there are 9 whole numbers in that (exclusive) range. We find the
-		// largest integer strictly less than the upper bound, and just truncate the lower bound.
-		return highestWholeNumber(roots[0]) - (long)roots[1];
 	}
 
 	/**
@@ -94,11 +99,5 @@ public class Day_06 {
 		final var constValue = -1 * B / (A * 2);
 		return new double[]{constValue + flippableValue, constValue - flippableValue};
 	}
-
-	@Builder
-	public static record Race (
-		long duration,
-		long recordDistance
-	) {}
 
 }
