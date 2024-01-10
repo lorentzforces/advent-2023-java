@@ -1,5 +1,7 @@
 # Advent of Code 2023 in Java 21
 
+This currently works for up to Day 7, part 1. Part 2 has a solution which probably works, but is impractically slow. At the moment I need to focus my time on work and other things, so this is where it's getting left for now.
+
 ### Objectives:
 
 - Use Java 21
